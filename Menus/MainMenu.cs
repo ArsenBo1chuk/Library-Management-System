@@ -42,7 +42,10 @@ public class MainMenu
         while (true)
         {
             PrintMenu();
-            int choise = int.Parse(Console.ReadLine()!);
+            if (!int.TryParse(Console.ReadLine()!, out int choise))
+            {
+                throw new FormatException("Invalid choise format.");
+            }
             switch (choise)
             {
                 case 1:

@@ -40,7 +40,10 @@ public class ReaderMenu
         while (true)
         {
             PrintMenu();
-            int choise = int.Parse(Console.ReadLine()!);
+            if (!int.TryParse(Console.ReadLine()!, out int choise))
+            {
+                throw new FormatException("Invalid choise format.");
+            }
 
             switch (choise)
             {
@@ -86,7 +89,10 @@ public class ReaderMenu
             string name = Console.ReadLine()!;
 
             Console.Write("Age: ");
-            int age = int.Parse(Console.ReadLine()!);
+            if (!int.TryParse(Console.ReadLine()!, out int age))
+            {
+                throw new FormatException("Invalid age format.");
+            }
 
             Console.Write("Email: ");
             string email = Console.ReadLine()!;
@@ -110,7 +116,10 @@ public class ReaderMenu
         try
         {
             Console.Write("Id: ");
-            Guid Id = Guid.Parse(Console.ReadLine()!);
+            if (!Guid.TryParse(Console.ReadLine()!, out Guid Id))
+            {
+                throw new FormatException("Invalid ID format.");
+            }
 
             if (readerService.RemoveReader(Id))
                 Console.WriteLine("Reader remove successfully.");
@@ -130,13 +139,19 @@ public class ReaderMenu
         try
         {
             Console.Write("Id: ");
-            Guid Id = Guid.Parse(Console.ReadLine()!);
+            if (!Guid.TryParse(Console.ReadLine()!, out Guid Id))
+            {
+                throw new FormatException("Invalid ID format.");
+            }
 
             Console.Write("Name: ");
             string name = Console.ReadLine()!;
 
             Console.Write("Age: ");
-            int age = int.Parse(Console.ReadLine()!);
+            if (!int.TryParse(Console.ReadLine()!, out int age))
+            {
+                throw new FormatException("Invalid age format.");
+            }
 
             Console.Write("Email: ");
             string email = Console.ReadLine()!;
@@ -159,7 +174,10 @@ public class ReaderMenu
         try
         {
             Console.Write("Id: ");
-            Guid Id = Guid.Parse(Console.ReadLine()!);
+            if (!Guid.TryParse(Console.ReadLine()!, out Guid Id))
+            {
+                throw new FormatException("Invalid ID format.");
+            }
 
             Reader reader = readerService.FindREader(Id)!;
             reader.PrintInfo();
@@ -193,7 +211,10 @@ public class ReaderMenu
         try
         {
             Console.Write("Id: ");
-            Guid Id = Guid.Parse(Console.ReadLine()!);
+            if (!Guid.TryParse(Console.ReadLine()!, out Guid Id))
+            {
+                throw new FormatException("Invalid ID format.");
+            }
 
             Reader reader = readerService.FindREader(Id)!;
             var history = reader.BorrowHistory;

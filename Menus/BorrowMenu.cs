@@ -34,39 +34,41 @@ public class BorrowMenu
 
     public void Show()
     {
-        while(true)
+        while (true)
         {
             PrintMenu();
-            int choise = int.Parse(Console.ReadLine()!);
-
-            switch(choise)
+            if (!int.TryParse(Console.ReadLine()!, out int choise))
+            {
+                throw new FormatException("Invalid choise format.");
+            }
+            switch (choise)
             {
                 case 1:
-                BorrowBook();
-                break;
+                    BorrowBook();
+                    break;
 
                 case 2:
-                ReturnBook();
-                break;
+                    ReturnBook();
+                    break;
 
 
                 case 3:
-                ActiveBorrows();
-                break;
+                    ActiveBorrows();
+                    break;
 
                 case 4:
-                LateBorrows();
-                break;
+                    LateBorrows();
+                    break;
 
                 case 5:
-                BorrowHistory();
-                break;
+                    BorrowHistory();
+                    break;
 
                 case 0: return;
 
-                default: 
-                Console.WriteLine("Invalid choise");
-                break;
+                default:
+                    Console.WriteLine("Invalid choise");
+                    break;
             }
         }
     }
@@ -76,10 +78,15 @@ public class BorrowMenu
         try
         {
             Console.Write("Book id: ");
-            Guid bookId = Guid.Parse(Console.ReadLine()!);
-
+            if (!Guid.TryParse(Console.ReadLine()!, out Guid bookId))
+            {
+                throw new FormatException("Invalid ID format.");
+            }
             Console.Write("Reader id: ");
-            Guid readerId = Guid.Parse(Console.ReadLine()!);
+            if (!Guid.TryParse(Console.ReadLine()!, out Guid readerId))
+            {
+                throw new FormatException("Invalid ID format.");
+            }
             BorrowRecord br = borrowService.BorrowBook(bookId, readerId);
             Console.WriteLine();
             Console.WriteLine("\nBook borrowed successfully.");
@@ -99,7 +106,10 @@ public class BorrowMenu
         try
         {
             Console.Write("Id: ");
-            Guid Id = Guid.Parse(Console.ReadLine()!);
+            if (!Guid.TryParse(Console.ReadLine()!, out Guid Id))
+            {
+                throw new FormatException("Invalid ID format.");
+            }
 
             double penalty = borrowService.ReturnBook(Id);
             Console.WriteLine();
@@ -153,7 +163,10 @@ public class BorrowMenu
         try
         {
             Console.Write("Id: ");
-            Guid Id = Guid.Parse(Console.ReadLine()!);
+            if (!Guid.TryParse(Console.ReadLine()!, out Guid Id))
+            {
+                throw new FormatException("Invalid ID format.");
+            }
             List<BorrowRecord> activeBorrow = borrowService.GetReaderHistory(Id);
             foreach (var item in activeBorrow)
             {

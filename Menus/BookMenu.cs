@@ -39,56 +39,59 @@ public class BookMenu
 
     public void Show()
     {
-        while(true)
+        while (true)
         {
             PrintMenu();
-            int choise = int.Parse(Console.ReadLine()!);
-            switch(choise)
+            if(!int.TryParse(Console.ReadLine()!, out int choise))
             {
-                case 1 :
-                AddBook();
-                break;
+                throw new FormatException("Invalid choise format.");
+            }
+            switch (choise)
+            {
+                case 1:
+                    AddBook();
+                    break;
 
                 case 2:
-                RemoveBook();
-                break;
+                    RemoveBook();
+                    break;
 
                 case 3:
-                EditBook();
-                break;
+                    EditBook();
+                    break;
 
                 case 4:
-                FindBookById();
-                break;
+                    FindBookById();
+                    break;
 
                 case 5:
-                FindBookByTitle();
-                break;
+                    FindBookByTitle();
+                    break;
 
                 case 6:
-                FindBookByAuthor();
-                break;
+                    FindBookByAuthor();
+                    break;
 
                 case 7:
-                ShowAllBooks();
-                break;
+                    ShowAllBooks();
+                    break;
 
                 case 8:
-                ShowAvaibleBooks();
-                break;
+                    ShowAvaibleBooks();
+                    break;
 
                 case 9:
-                BooksByGenre();
-                break;
+                    BooksByGenre();
+                    break;
 
                 case 0: return;
 
                 default:
-                Console.WriteLine("Invalid choice");
-                break;
+                    Console.WriteLine("Invalid choice");
+                    break;
             }
         }
-        
+
     }
 
     private void AddBook()
@@ -102,13 +105,22 @@ public class BookMenu
             string author = Console.ReadLine()!;
 
             Console.Write("Year: ");
-            int year = int.Parse(Console.ReadLine()!);
+            if (!int.TryParse(Console.ReadLine()!, out int year))
+            {
+                throw new FormatException("Invalid year format.");
+            }
 
             Console.Write("Pages: ");
-            int pages = int.Parse(Console.ReadLine()!);
+            if (!int.TryParse(Console.ReadLine()!, out int pages))
+            {
+                throw new FormatException("Invalid pages format.");
+            }
 
             Console.Write("Genre: ");
-            Genre genre = Enum.Parse<Genre>(Console.ReadLine()!, true);
+            if (!Enum.TryParse(Console.ReadLine()!, ignoreCase: true, out Genre genre))
+            {
+                throw new FormatException("Invalid genre format.");
+            }
 
             bookService.AddBook(title, author, pages, year, genre);
 
@@ -128,7 +140,10 @@ public class BookMenu
         try
         {
             Console.Write("Id: ");
-            Guid Id = Guid.Parse(Console.ReadLine()!);
+            if (!Guid.TryParse(Console.ReadLine()!, out Guid Id))
+            {
+                throw new FormatException("Invalid ID format.");
+            }
 
             bookService.RemoveBook(Id);
             Console.WriteLine("\nBook removed successfully.");
@@ -148,7 +163,10 @@ public class BookMenu
         try
         {
             Console.Write("Id: ");
-            Guid id = Guid.Parse(Console.ReadLine()!);
+            if (!Guid.TryParse(Console.ReadLine()!, out Guid id))
+            {
+                throw new FormatException("Invalid ID format.");
+            }
 
             Console.Write("Title: ");
             string title = Console.ReadLine()!;
@@ -157,13 +175,22 @@ public class BookMenu
             string author = Console.ReadLine()!;
 
             Console.Write("Year: ");
-            int year = int.Parse(Console.ReadLine()!);
+            if (!int.TryParse(Console.ReadLine()!, out int year))
+            {
+                throw new FormatException("Invalid year format.");
+            }
 
             Console.Write("Pages: ");
-            int pages = int.Parse(Console.ReadLine()!);
+            if (!int.TryParse(Console.ReadLine()!, out int pages))
+            {
+                throw new FormatException("Invalid pages format.");
+            }
 
             Console.Write("Genre: ");
-            Genre genre = Enum.Parse<Genre>(Console.ReadLine()!, true);
+            if (!Enum.TryParse(Console.ReadLine()!, ignoreCase: true, out Genre genre))
+            {
+                throw new FormatException("Invalid genre format.");
+            }
 
             bookService.EditBook(id, title, author, pages, year, genre);
 
@@ -183,7 +210,10 @@ public class BookMenu
         try
         {
             Console.Write("Id: ");
-            Guid Id = Guid.Parse(Console.ReadLine()!);
+            if (!Guid.TryParse(Console.ReadLine()!, out Guid Id))
+            {
+                throw new FormatException("Invalid ID format.");
+            }
 
             Book? book = bookService.FindBook(Id);
             if (book is null)
@@ -293,7 +323,10 @@ public class BookMenu
         try
         {
             Console.Write("Genre: ");
-            Genre genre = (Genre)Enum.Parse(typeof(Genre), Console.ReadLine()!, ignoreCase:true);
+            if (!Enum.TryParse(Console.ReadLine()!, ignoreCase: true, out Genre genre))
+            {
+                throw new FormatException("Invalid genre format.");
+            }
 
             List<Book>? book = bookService.GetBooksByGenre(genre);
             if (book is null)

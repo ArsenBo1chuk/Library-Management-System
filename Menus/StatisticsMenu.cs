@@ -37,7 +37,10 @@ public class StatisticsMenu
         while (true)
         {
             PrintMenu();
-            int choise = int.Parse(Console.ReadLine()!);
+            if (!int.TryParse(Console.ReadLine()!, out int choise))
+            {
+                throw new FormatException("Invalid choise format.");
+            }
 
             switch (choise)
             {
@@ -84,7 +87,10 @@ public class StatisticsMenu
         try
         {
             Console.Write("Count: ");
-            int count = int.Parse(Console.ReadLine()!);
+            if (!int.TryParse(Console.ReadLine()!, out int count))
+            {
+                throw new FormatException("Invalid count format.");
+            }
 
             List<Book>? MostPopular = statisticsService.GetMostPopularBooks(count);
             foreach (var item in MostPopular)
@@ -107,7 +113,10 @@ public class StatisticsMenu
         {
 
             Console.Write("Count: ");
-            int count = int.Parse(Console.ReadLine()!);
+            if (!int.TryParse(Console.ReadLine()!, out int count))
+            {
+                throw new FormatException("Invalid count format.");
+            }
             List<Reader>? MostActive = statisticsService.GetMostActiveReaders(count);
             foreach (var item in MostActive)
             {
