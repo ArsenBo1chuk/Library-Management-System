@@ -39,7 +39,7 @@ public class StatisticsMenu
             PrintMenu();
             if (!int.TryParse(Console.ReadLine()!, out int choise))
             {
-                throw new FormatException("Invalid choise format.");
+                continue;
             }
 
             switch (choise)
