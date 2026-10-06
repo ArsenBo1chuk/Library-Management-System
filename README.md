@@ -270,4 +270,4 @@ Backend Developer (C++ / C#)
 
 ---
 
-⭐ If you like this project, consider giving it a star!
+⭐ If you like this project, consider giving it a star.
